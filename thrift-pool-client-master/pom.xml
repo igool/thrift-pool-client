@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github.phantomthief</groupId>
+	<groupId>com.github.igool</groupId>
 	<artifactId>thrift-pool-client</artifactId>
 	<version>1.0.1</version>
 
@@ -17,7 +17,7 @@
 
 	<developers>
 		<developer>
-			<name>w.vela</name>
+			<name>igool</name>
 		</developer>
 	</developers>
 
@@ -29,11 +29,6 @@
 		</license>
 	</licenses>
 
-	<scm>
-		<connection>scm:git:https://github.com/PhantomThief/thrift-pool-client.git</connection>
-		<url>https://github.com/PhantomThief/thrift-pool-client.git</url>
-		<developerConnection>scm:git:https://github.com/PhantomThief/thrift-pool-client.git</developerConnection>
-	</scm>
 
 	<dependencies>
 		<dependency>
