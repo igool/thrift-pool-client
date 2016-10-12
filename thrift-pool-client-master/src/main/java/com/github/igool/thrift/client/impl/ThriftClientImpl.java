@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.thrift.TServiceClient;
 import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TMultiplexedProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TTransport;
 
@@ -29,7 +30,8 @@ import javassist.util.proxy.ProxyFactory;
 /**
  * <p>
  * ThriftClientImpl class.
- * 使用jdk7改写了部分核心方法块
+ * 1 使用jdk7改写了部分核心方法块
+ * 2 使用TMultiplexedProtocol增加了多服务实现
  * </p>
  *
  * @author w.vela
@@ -123,7 +125,10 @@ public class ThriftClientImpl implements ThriftClient {
         final TTransport transport = poolProvider.getConnection(selected);
         TProtocol protocol = protocolProvider.apply(transport);
 
+        //增加多路复用SERVICE调用
+        TMultiplexedProtocol tMnutip = new TMultiplexedProtocol(protocol,ifaceClass.getName());
         ProxyFactory factory = new ProxyFactory();
+
         factory.setSuperclass(ifaceClass);
 /*        factory.setFilter(m -> ThriftClientUtils.getInterfaceMethodNames(ifaceClass).contains(
                 m.getName()));*/
@@ -138,7 +143,7 @@ public class ThriftClientImpl implements ThriftClient {
         
         try {
             X x = (X) factory.create(new Class[] { org.apache.thrift.protocol.TProtocol.class },
-                    new Object[] { protocol });
+                    new Object[] { tMnutip });
             //使用JDK7来改写代理的方法调用
             ((Proxy) x).setHandler(new MethodHandler(){
 
